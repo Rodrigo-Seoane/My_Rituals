@@ -1,76 +1,82 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { supabase } from "./supabase";
 import { WeeklyAgenda, DailyOps, WeeklyReview } from "./types";
-
-const DATA_DIR = path.join(process.cwd(), "data");
-const WEEKS_DIR = path.join(DATA_DIR, "weeks");
-const DAILY_DIR = path.join(DATA_DIR, "daily");
-const REVIEWS_DIR = path.join(DATA_DIR, "reviews");
-
-async function ensureDir(dir: string) {
-  await fs.mkdir(dir, { recursive: true });
-}
 
 // ─── Weekly Agenda ────────────────────────────────────────────────────────────
 
 export async function getWeeklyAgenda(
   mondayISO: string
 ): Promise<WeeklyAgenda | null> {
-  await ensureDir(WEEKS_DIR);
-  const file = path.join(WEEKS_DIR, `${mondayISO}.json`);
-  try {
-    const raw = await fs.readFile(file, "utf-8");
-    return JSON.parse(raw) as WeeklyAgenda;
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabase
+    .from("weekly_agendas")
+    .select("data")
+    .eq("week_of", mondayISO)
+    .single();
+
+  if (error || !data) return null;
+  return data.data as WeeklyAgenda;
 }
 
 export async function saveWeeklyAgenda(agenda: WeeklyAgenda): Promise<void> {
-  await ensureDir(WEEKS_DIR);
-  const file = path.join(WEEKS_DIR, `${agenda.weekOf}.json`);
   agenda.updatedAt = new Date().toISOString();
-  await fs.writeFile(file, JSON.stringify(agenda, null, 2));
+
+  const { error } = await supabase.from("weekly_agendas").upsert(
+    {
+      week_of: agenda.weekOf,
+      data: agenda,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "week_of" }
+  );
+
+  if (error) throw error;
 }
 
 export async function listWeeklyAgendas(): Promise<string[]> {
-  await ensureDir(WEEKS_DIR);
-  const files = await fs.readdir(WEEKS_DIR);
-  return files
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => f.replace(".json", ""))
-    .sort()
-    .reverse();
+  const { data, error } = await supabase
+    .from("weekly_agendas")
+    .select("week_of")
+    .order("week_of", { ascending: false });
+
+  if (error || !data) return [];
+  return data.map((row) => row.week_of);
 }
 
 // ─── Daily Ops ────────────────────────────────────────────────────────────────
 
 export async function getDailyOps(dateISO: string): Promise<DailyOps | null> {
-  await ensureDir(DAILY_DIR);
-  const file = path.join(DAILY_DIR, `${dateISO}.json`);
-  try {
-    const raw = await fs.readFile(file, "utf-8");
-    return JSON.parse(raw) as DailyOps;
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabase
+    .from("daily_ops")
+    .select("data")
+    .eq("date", dateISO)
+    .single();
+
+  if (error || !data) return null;
+  return data.data as DailyOps;
 }
 
 export async function saveDailyOps(ops: DailyOps): Promise<void> {
-  await ensureDir(DAILY_DIR);
-  const file = path.join(DAILY_DIR, `${ops.date}.json`);
   ops.updatedAt = new Date().toISOString();
-  await fs.writeFile(file, JSON.stringify(ops, null, 2));
+
+  const { error } = await supabase.from("daily_ops").upsert(
+    {
+      date: ops.date,
+      data: ops,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "date" }
+  );
+
+  if (error) throw error;
 }
 
 export async function listDailyOps(): Promise<string[]> {
-  await ensureDir(DAILY_DIR);
-  const files = await fs.readdir(DAILY_DIR);
-  return files
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => f.replace(".json", ""))
-    .sort()
-    .reverse();
+  const { data, error } = await supabase
+    .from("daily_ops")
+    .select("date")
+    .order("date", { ascending: false });
+
+  if (error || !data) return [];
+  return data.map((row) => row.date);
 }
 
 // ─── Weekly Reviews ───────────────────────────────────────────────────────────
@@ -78,29 +84,37 @@ export async function listDailyOps(): Promise<string[]> {
 export async function getWeeklyReview(
   mondayISO: string
 ): Promise<WeeklyReview | null> {
-  await ensureDir(REVIEWS_DIR);
-  const file = path.join(REVIEWS_DIR, `${mondayISO}.json`);
-  try {
-    const raw = await fs.readFile(file, "utf-8");
-    return JSON.parse(raw) as WeeklyReview;
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabase
+    .from("weekly_reviews")
+    .select("data")
+    .eq("week_of", mondayISO)
+    .single();
+
+  if (error || !data) return null;
+  return data.data as WeeklyReview;
 }
 
 export async function saveWeeklyReview(review: WeeklyReview): Promise<void> {
-  await ensureDir(REVIEWS_DIR);
-  const file = path.join(REVIEWS_DIR, `${review.weekOf}.json`);
   review.updatedAt = new Date().toISOString();
-  await fs.writeFile(file, JSON.stringify(review, null, 2));
+
+  const { error } = await supabase.from("weekly_reviews").upsert(
+    {
+      week_of: review.weekOf,
+      data: review,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "week_of" }
+  );
+
+  if (error) throw error;
 }
 
 export async function listWeeklyReviews(): Promise<string[]> {
-  await ensureDir(REVIEWS_DIR);
-  const files = await fs.readdir(REVIEWS_DIR);
-  return files
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => f.replace(".json", ""))
-    .sort()
-    .reverse();
+  const { data, error } = await supabase
+    .from("weekly_reviews")
+    .select("week_of")
+    .order("week_of", { ascending: false });
+
+  if (error || !data) return [];
+  return data.map((row) => row.week_of);
 }
