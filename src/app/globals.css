@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme inline {
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Brand */
+  --color-brand-yellow: #FFD115;
+  --color-brand-brown: #421E06;
+  --color-brand-cream: #FFF9F0;
+  --color-brand-black: #080D00;
+  --color-brand-gray: #686B63;
+  --color-brand-gray-light: #C7C8C6;
+  --color-brand-surface: #F7F7F7;
+
+  /* shadcn tokens */
+  --color-background: #FFFFFF;
+  --color-foreground: #080D00;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #080D00;
+  --color-primary: #FFD115;
+  --color-primary-foreground: #421E06;
+  --color-secondary: #F7F7F7;
+  --color-secondary-foreground: #080D00;
+  --color-muted: #F7F7F7;
+  --color-muted-foreground: #686B63;
+  --color-accent: #FFF9F0;
+  --color-accent-foreground: #421E06;
+  --color-border: #C7C8C6;
+  --color-input: #C7C8C6;
+  --color-ring: #FFD115;
+  --color-destructive: #EF4444;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #F7F7F7;
+  color: #080D00;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F7F7F7; }
+::-webkit-scrollbar-thumb { background: #C7C8C6; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #686B63; }
