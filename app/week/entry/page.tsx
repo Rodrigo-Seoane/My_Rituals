@@ -111,9 +111,9 @@ export default function WeeklyEntryPage() {
   return (
     <div className="max-w-3xl space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-heading text-3xl font-bold text-[#080D00]">Weekly Plan</h1>
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-[#080D00]">Weekly Plan</h1>
           <p className="text-[#686B63] mt-1 flex items-center gap-1.5">
             <Calendar className="h-4 w-4" />
             {formatWeekRange(mondayISO)}
@@ -208,9 +208,9 @@ export default function WeeklyEntryPage() {
               {/* Expanded form */}
               {isOpen && (
                 <CardContent className="pt-0 pb-4 px-4 border-t border-[#F7F7F7]">
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                     {/* Title */}
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <Label htmlFor={`title-${task.id}`}>Task title *</Label>
                       <Input
                         id={`title-${task.id}`}
@@ -293,7 +293,7 @@ export default function WeeklyEntryPage() {
                     </div>
 
                     {/* Blocks */}
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <Label htmlFor={`blocks-${task.id}`}>
                         <span className="flex items-center gap-1.5">
                           <AlertTriangle className="h-3.5 w-3.5 text-amber-500" />
@@ -310,7 +310,7 @@ export default function WeeklyEntryPage() {
                     </div>
 
                     {/* Notes */}
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <Label htmlFor={`notes-${task.id}`}>Notes</Label>
                       <Textarea
                         id={`notes-${task.id}`}
@@ -338,8 +338,8 @@ export default function WeeklyEntryPage() {
       </button>
 
       {/* Bottom save */}
-      <div className="flex justify-end pt-2">
-        <Button onClick={handleSave} disabled={saving} size="lg">
+      <div className="flex pt-2">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="w-full sm:w-auto">
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {saving ? "Saving…" : "Save & schedule week"}
         </Button>

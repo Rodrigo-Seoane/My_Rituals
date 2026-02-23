@@ -142,9 +142,9 @@ export default function DailyOpsPage() {
   return (
     <div className="max-w-2xl space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-heading text-3xl font-bold text-[#080D00]">Daily Check-in</h1>
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-[#080D00]">Daily Check-in</h1>
           <p className="text-[#686B63] mt-1 flex items-center gap-1.5">
             <Calendar className="h-4 w-4" />
             {getDayName(todayISO)}, {formatDate(todayISO, "MMMM d, yyyy")}
@@ -304,7 +304,7 @@ export default function DailyOpsPage() {
       )}
 
       <div className="flex justify-end">
-        <Button onClick={handleSave} disabled={saving} size="lg">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="w-full sm:w-auto">
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {saving ? "Saving…" : "Save check-in"}
         </Button>

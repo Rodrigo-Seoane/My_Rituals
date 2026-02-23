@@ -93,9 +93,9 @@ export default function WeeklyReviewPage() {
   return (
     <div className="max-w-2xl space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-heading text-3xl font-bold text-[#080D00]">Weekly Review</h1>
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-[#080D00]">Weekly Review</h1>
           <p className="text-[#686B63] mt-1">{formatWeekRange(mondayISO)}</p>
         </div>
         <Button onClick={handleSave} disabled={saving}>
@@ -108,7 +108,7 @@ export default function WeeklyReviewPage() {
       {tasks.length > 0 && (
         <Card className="bg-[#421E06] text-white border-0">
           <CardContent className="pt-5">
-            <div className="grid grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4">
               <div>
                 <p className="text-xs text-[#C7C8C6] opacity-70 uppercase tracking-wider">Completion</p>
                 <p className="text-2xl font-heading font-bold text-[#FFD115] mt-0.5">{completionPct}%</p>
@@ -258,7 +258,7 @@ export default function WeeklyReviewPage() {
       </div>
 
       <div className="flex justify-end">
-        <Button onClick={handleSave} disabled={saving} size="lg">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="w-full sm:w-auto">
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {saving ? "Saving…" : "Save review"}
         </Button>

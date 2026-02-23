@@ -39,9 +39,9 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-heading text-3xl font-bold text-[#080D00]">
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-[#080D00]">
             Week of {formatWeekRange(mondayISO)}
           </h1>
           <p className="text-[#686B63] mt-1">
@@ -89,7 +89,7 @@ export default async function DashboardPage() {
       ) : (
         <>
           {/* Stats row */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <Card>
               <CardContent className="pt-5">
                 <p className="text-xs font-medium text-[#686B63] uppercase tracking-wider">Progress</p>
@@ -138,9 +138,9 @@ export default async function DashboardPage() {
           </Card>
 
           {/* Two-column: tasks list + today's ops */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* Task list */}
-            <div className="col-span-2 space-y-3">
+            <div className="lg:col-span-2 space-y-3">
               <h2 className="font-heading text-lg font-semibold text-[#080D00]">All tasks</h2>
               {categoryBreakdown.map(({ key, meta, hours, count, done }) => (
                 <Card key={key}>

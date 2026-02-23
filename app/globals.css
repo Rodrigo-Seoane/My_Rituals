@@ -57,3 +57,13 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-track { background: #F7F7F7; }
 ::-webkit-scrollbar-thumb { background: #C7C8C6; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #686B63; }
+
+/* Prevent iOS Safari from auto-zooming on form input focus.
+   iOS zooms when font-size is below 16px. This targets mobile only. */
+@media screen and (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}

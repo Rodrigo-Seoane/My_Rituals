@@ -58,7 +58,7 @@ export default async function HistoryPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="font-heading text-3xl font-bold text-[#080D00]">History</h1>
+        <h1 className="font-heading text-2xl sm:text-3xl font-bold text-[#080D00]">History</h1>
         <p className="text-[#686B63] mt-1">
           {weeks.length} week{weeks.length !== 1 ? "s" : ""} documented
         </p>
@@ -94,7 +94,7 @@ export default async function HistoryPage() {
               className={week.isCurrent ? "border-[#FFD115] bg-[#FFFEF5]" : undefined}
             >
               <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <div className="flex items-center gap-2">
                       <CardTitle className="text-base">
